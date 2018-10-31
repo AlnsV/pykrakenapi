@@ -689,7 +689,7 @@ class KrakenAPI(object):
             for col in ['price', 'volume']:
                 trades.loc[:, col] = trades[col].astype(float)
 
-        return trades, last
+        return trades
 
     @crl_sleep
     @callratelimiter('other')
