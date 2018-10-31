@@ -681,7 +681,7 @@ class KrakenAPI(object):
             trades.market_limit.replace('m', 'market', inplace=True)
 
             # time
-            trades['dtime'] = pd.to_datetime(trades.time, unit='s')
+            trades['dtime'] = pd.to_datetime(trades.time, unit='s', utc=True)
             trades.sort_values('dtime', ascending=ascending, inplace=True)
             trades.set_index('dtime', inplace=True)
 
