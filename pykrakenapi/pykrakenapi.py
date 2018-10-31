@@ -653,8 +653,12 @@ class KrakenAPI(object):
         """
 
         # create data dictionary
-        data = {arg: value for arg, value in locals().items() if
-                arg != 'self' and value is not None}
+        data = {
+            'pair': pair.replace('-', ''),
+            'since': since,
+            'ascending': ascending
+        }
+
 
         # query
         res = self.api.query_public('Trades', data=data)
@@ -664,10 +668,7 @@ class KrakenAPI(object):
             raise KrakenAPIError(res['error'])
 
         # create dataframe
-        trades = pd.DataFrame(res['result'][pair])
-
-        # last timestamp
-        last = int(res['result']['last'])
+        trades = pd.DataFrame(res['result'][pair.replace('-', 'Z')])
 
         if not trades.empty:
 
